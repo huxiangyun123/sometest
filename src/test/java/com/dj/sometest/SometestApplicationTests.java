@@ -1,5 +1,7 @@
 package com.dj.sometest;
 
+import com.dj.sometest.entity.Book;
+import com.dj.sometest.util.JavaToXml;
 import com.dj.sometest.util.JdomXml;
 import com.dj.sometest.util.SftpUtil;
 import com.dj.sometest.util.Dom4jXml;
@@ -7,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -67,4 +71,18 @@ class SometestApplicationTests {
         JdomXml.createXml();
         System.out.println("运行时间："+ (System.currentTimeMillis() - start));
     }
+
+    @Test
+    public void test6(){
+        Book b1 = new Book("冰与火之歌", "123", 39);
+        List<String> list = new ArrayList<>();
+        list.add("乔治");
+        list.add("马丁");
+        list.add("马丁 2");
+        list.add("马丁 3");
+        b1.setAuthors(list);
+        JavaToXml.toXml(b1);
+    }
+
+
 }

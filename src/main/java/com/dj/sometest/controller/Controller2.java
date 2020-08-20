@@ -1,3 +1,4 @@
+/*
 package com.dj.sometest.controller;
 
 import com.dj.sometest.entity.User;
@@ -17,10 +18,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+*/
 /**
  * @Author: Chris
  * @Date: 2020/8/8 14:34
- */
+ *//*
+
 @RestController
 @RequestMapping("/test2")
 public class Controller2 {
@@ -74,3 +77,4 @@ public class Controller2 {
 
 
 }
+*/
