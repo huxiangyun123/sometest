@@ -1,5 +1,6 @@
 package com.dj.sometest.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -9,7 +10,9 @@ import lombok.Data;
 @Data
 public class Progress {
 
-    private Integer total;
+    @JsonProperty("Total")
+    private Integer Total;
 
-    private Integer success;
+    @JsonProperty("Success")
+    private String Success;
 }

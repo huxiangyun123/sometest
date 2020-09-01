@@ -1,6 +1,7 @@
 package com.dj.sometest;
 
 import com.dj.sometest.entity.Book;
+import com.dj.sometest.entity.User;
 import com.dj.sometest.util.JavaToXml;
 import com.dj.sometest.util.JdomXml;
 import com.dj.sometest.util.SftpUtil;
@@ -8,6 +9,7 @@ import com.dj.sometest.util.Dom4jXml;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,9 @@ class SometestApplicationTests {
 
     @Autowired
     ThreadPoolExecutor executor;
+    @Autowired
+    ApplicationContext applicationContext;
+
 
     @Test
     void contextLoads() {
@@ -75,13 +80,31 @@ class SometestApplicationTests {
     @Test
     public void test6(){
         Book b1 = new Book("冰与火之歌", "123", 39);
-        List<String> list = new ArrayList<>();
-        list.add("乔治");
-        list.add("马丁");
-        list.add("马丁 2");
-        list.add("马丁 3");
+        List<User> list = new ArrayList<>();
+        User u1 = new User("小红","蓝企鹅");
+        User u2 = new User("小名","蓝球");
+        list.add(u1);
+        list.add(u2);
         b1.setAuthors(list);
         JavaToXml.toXml(b1);
+    }
+
+
+    @Test
+    public void test7(){
+        Book b1 = new Book("冰与火之歌", "123", 39);
+        List<User> list = new ArrayList<>();
+        User u1 = new User("小红","蓝企鹅");
+        User u2 = new User("小名","蓝球");
+        list.add(u1);
+        list.add(u2);
+        b1.setAuthors(list);
+        JavaToXml.convertToXml(b1,"D:\\b.xml");
+    }
+
+    @Test
+    public void test8(){
+
     }
 
 
