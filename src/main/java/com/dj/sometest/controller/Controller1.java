@@ -41,9 +41,8 @@ public class Controller1 {
 
 
     @GetMapping("/test")
-    public void test() {
-
-        redisTemplate.opsForValue().set("user1", "胡祥云", 60, TimeUnit.SECONDS);
+    public String test() {
+        return "hello";
     }
 
 
