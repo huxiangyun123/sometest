@@ -1,9 +1,6 @@
 package com.dj.sometest.controller;
 
 import com.dj.sometest.annotation.MyAnnotation;
-import com.dj.sometest.entity.Progress;
-import com.dj.sometest.service.UserService;
-import com.dj.sometest.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,11 +8,11 @@ import org.springframework.web.bind.annotation.*;
  * @Author: Chris
  * @Date: 2020/8/25 15:48
  */
+@MyAnnotation("test")
 @RestController
 public class AopController {
 
-    @Autowired
-    UserServiceImpl userService;
+
 
     @GetMapping("/aop01")
     public void testaop1() {
@@ -31,13 +28,10 @@ public class AopController {
 
     @GetMapping("/t3")
     public void test() {
-        userService.test();
+
         System.out.println("testaop2==========");
     }
 
-    @PostMapping("/t4")
-    public void test5(@RequestBody Progress progress) {
-        System.out.println(progress);
-    }
+
 
 }

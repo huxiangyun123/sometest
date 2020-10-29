@@ -11,7 +11,25 @@ import java.util.regex.Pattern;
  */
 public class StringUtil {
 
+    public static Pattern p = Pattern.compile("\\s*|\t|\r|\n");
 
+
+
+    public static String test(){
+        return "haha";
+    }
+
+
+    public static String replaceBlank(String s) {
+        String result= null;
+        if (s == null) {
+            return result;
+        } else {
+            Matcher m = p.matcher(s);
+            result= m.replaceAll("");
+            return result;
+        }
+    }
 
 
     public static List<String> cut2(String s) {

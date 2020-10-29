@@ -1,11 +1,6 @@
 package com.dj.sometest.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.dj.sometest.cons.Constant;
-import com.dj.sometest.entity.Progress;
-import com.dj.sometest.entity.UserEntity;
-import com.dj.sometest.mapper.UserMapper;
-import org.springframework.beans.BeansException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -34,8 +29,6 @@ public class Controller1 {
 
     @Autowired
     ThreadPoolExecutor executor;
-    @Autowired
-    UserMapper userMapper;
     @Autowired
     RedisTemplate redisTemplate;
 

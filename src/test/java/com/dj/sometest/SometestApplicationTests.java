@@ -1,20 +1,27 @@
 package com.dj.sometest;
 
-import com.dj.sometest.entity.Book;
+
+import com.dj.sometest.annotation.MyAnnotation;
+import com.dj.sometest.entity.MyClassPathDefinitonScanner;
 import com.dj.sometest.entity.User;
-import com.dj.sometest.util.JavaToXml;
+import com.dj.sometest.mapper.UserMapper;
 import com.dj.sometest.util.JdomXml;
 import com.dj.sometest.util.SftpUtil;
 import com.dj.sometest.util.Dom4jXml;
+import com.dj.sometest.util.StringUtil;
+import jdk.internal.org.objectweb.asm.ClassReader;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 @SpringBootTest
 class SometestApplicationTests {
@@ -23,6 +30,8 @@ class SometestApplicationTests {
     ThreadPoolExecutor executor;
     @Autowired
     ApplicationContext applicationContext;
+    @Autowired
+    UserMapper userMapper;
 
 
     @Test
@@ -49,61 +58,78 @@ class SometestApplicationTests {
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         String uploadFile = "D:\\test.xls";
         String directory = "/opt";
-        SftpUtil.upload(directory,uploadFile);
+        SftpUtil.upload(directory, uploadFile);
         System.out.println("成功");
     }
 
     @Test
-    public void test3(){
+    public void test3() {
         Long start = System.currentTimeMillis();
         Dom4jXml.createXml();
-        System.out.println("运行时间："+ (System.currentTimeMillis() - start));
+        System.out.println("运行时间：" + (System.currentTimeMillis() - start));
     }
 
     @Test
-    public void test4(){
+    public void test4() {
         Long start = System.currentTimeMillis();
         JdomXml.createXml();
-        System.out.println("运行时间："+ (System.currentTimeMillis() - start));
+        System.out.println("运行时间：" + (System.currentTimeMillis() - start));
     }
 
     @Test
-    public void test5(){
+    public void test5() {
         Long start = System.currentTimeMillis();
         JdomXml.createXml();
-        System.out.println("运行时间："+ (System.currentTimeMillis() - start));
+        System.out.println("运行时间：" + (System.currentTimeMillis() - start));
     }
 
     @Test
-    public void test6(){
-        Book b1 = new Book("冰与火之歌", "123", 39);
+    public void test6() {
         List<User> list = new ArrayList<>();
-        User u1 = new User("小红","蓝企鹅");
-        User u2 = new User("小名","蓝球");
-        list.add(u1);
-        list.add(u2);
-        b1.setAuthors(list);
-        JavaToXml.toXml(b1);
+        for(int i =1;i<=10;i++){
+           User user = new User();
+           user.setId(i);
+           user.setUsername("hh");
+           list.add(user);
+       }
+
+
+
+        List<User> collect = list.stream().filter(t -> t.getId() == 20).collect(Collectors.toList());
+        if(collect.size() >1){
+            System.out.println("111");
+        }
+
+
     }
 
 
+
     @Test
-    public void test7(){
-        Book b1 = new Book("冰与火之歌", "123", 39);
-        List<User> list = new ArrayList<>();
-        User u1 = new User("小红","蓝企鹅");
-        User u2 = new User("小名","蓝球");
-        list.add(u1);
-        list.add(u2);
-        b1.setAuthors(list);
-        JavaToXml.convertToXml(b1,"D:\\b.xml");
+    public void test8() {
+
+        String Scan_Path = "com.dj.sometest";
+        GenericApplicationContext context = new GenericApplicationContext();
+        MyClassPathDefinitonScanner scanner = new MyClassPathDefinitonScanner(context, MyAnnotation.class);
+        // 注册过滤器
+        scanner.registerTypeFilter();
+        int beanCount = scanner.scan(Scan_Path);
+        context.refresh();
+        String[] beanDefinitionNames = context.getBeanDefinitionNames();
+        System.out.println(beanCount);
+        for (String beanDefinitionName : beanDefinitionNames) {
+            System.out.println(beanDefinitionName);
+        }
+
     }
 
     @Test
-    public void test8(){
+    public void test9() {
+
+
 
     }
 

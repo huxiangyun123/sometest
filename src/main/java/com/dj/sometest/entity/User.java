@@ -1,41 +1,45 @@
 package com.dj.sometest.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.dj.sometest.util.StringUtil;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
-import java.util.Objects;
 
 /**
- * @Author: Chris
- * @Date: 2020/8/5 22:55
+ * @author Chris
+ * @date 2020-09-25 18:23:35
  */
+@ApiModel
 @Data
-public class User {
+@TableName("user")
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    private String name;
+	/**
+	 * 
+	 */
+	@TableId
+	@ApiModelProperty(name = "id",value = "")
+	private Integer id;
+	/**
+	 * 
+	 */
+	@ApiModelProperty(name = "username",value = "")
+	private String username;
+	/**
+	 * 
+	 */
+	@ApiModelProperty(name = "age",value = "")
+	private Integer age;
+	/**
+	 * 
+	 */
+	@ApiModelProperty(name = "createtime",value = "")
+	private String createtime;
 
-    private String habbit;
-
-    private Integer age;
-
-    public User(String name, String habbit) {
-        this.name = name;
-        this.habbit = habbit;
-    }
-
-    public User() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return name.equals(user.name) &&
-                habbit.equals(user.habbit);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, habbit);
-    }
 }
