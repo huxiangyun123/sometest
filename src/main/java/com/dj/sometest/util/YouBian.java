@@ -1,10 +1,8 @@
 package com.dj.sometest.util;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import org.springframework.web.client.RestTemplate;
-
+import net.sf.json.JSONObject;
 import java.util.Optional;
 
 /**
@@ -24,16 +22,21 @@ public class YouBian {
 
         RestTemplate restTemplate = new RestTemplate();
         String response = restTemplate.getForObject(URL_PREFIX + addr, String.class);
+        JSONObject jsonResp = JSONObject.fromObject(response);
+        //JSONObject jsonResp = JSON.parseObject(response);
 
-        JSONObject jsonResp = JSON.parseObject(response);
 
-        return Optional.ofNullable(jsonResp)
+        //String code = jsonResp.getJSONObject("rs").getString("POSTCODE");
+        String code = jsonResp.getJSONArray("rs").getJSONObject(0).getString("POSTCODE");
+        System.out.println(code);
+        return code;
+       /* return Optional.ofNullable(jsonResp)
                 .map(jsonObject -> jsonObject.getJSONArray("rs"))
                 .filter(jsonArray -> jsonArray.size() > 0)
                 // 地址不精确导致找到多个默认取第一个
                 .map(jsonArray -> jsonArray.getJSONObject(0))
                 .map(jsonObject -> jsonObject.getString("POSTCODE"))
-                .orElse(StringUtils.EMPTY);
+                .orElse(StringUtils.EMPTY);*/
     }
 
     public static void main(String[] args) {

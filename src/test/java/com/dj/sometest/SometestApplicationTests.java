@@ -8,7 +8,6 @@ import com.dj.sometest.mapper.UserMapper;
 import com.dj.sometest.util.JdomXml;
 import com.dj.sometest.util.SftpUtil;
 import com.dj.sometest.util.Dom4jXml;
-import com.dj.sometest.util.StringUtil;
 import jdk.internal.org.objectweb.asm.ClassReader;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
