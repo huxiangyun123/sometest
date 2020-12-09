@@ -8,6 +8,7 @@ import com.dj.sometest.mapper.UserMapper;
 import com.dj.sometest.util.JdomXml;
 import com.dj.sometest.util.SftpUtil;
 import com.dj.sometest.util.Dom4jXml;
+import com.dj.sometest.util.StringUtil;
 import jdk.internal.org.objectweb.asm.ClassReader;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -38,22 +41,25 @@ class SometestApplicationTests {
 
         System.out.println("主线程111111111111111");
 
-        System.out.println("线程池333333333333333");
         CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
             try {
-                test2();
+                aaa();
             } catch (Exception e) {
                 e.printStackTrace();
                 throw e;
             }
         }, executor);
 
-       /* future.whenComplete((re,e) -> {
+        System.out.println("主线程222222222222222");
+    }
 
-            System.out.println(e);
-        });*/
-
-        System.out.println("主线程2222222222222");
+    public void aaa(){
+        try {
+            //Thread.sleep(3000);
+            System.out.println("线程池333333333333333");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -85,26 +91,6 @@ class SometestApplicationTests {
         System.out.println("运行时间：" + (System.currentTimeMillis() - start));
     }
 
-    @Test
-    public void test6() {
-        List<User> list = new ArrayList<>();
-        for(int i =1;i<=10;i++){
-           User user = new User();
-           user.setId(i);
-           user.setUsername("hh");
-           list.add(user);
-       }
-
-
-
-        List<User> collect = list.stream().filter(t -> t.getId() == 20).collect(Collectors.toList());
-        if(collect.size() >1){
-            System.out.println("111");
-        }
-
-
-    }
-
 
 
     @Test
@@ -127,9 +113,23 @@ class SometestApplicationTests {
 
     @Test
     public void test9() {
+        String s = StringUtil.geFourNumber(11111,5);
+        System.out.println(s);
+    }
 
+    @Test
+    public void test10() {
+        List<Field> fields = Arrays.asList(User.class.getDeclaredFields());
+        for (Field field : fields) {
+            System.out.println(field.getName());
+        }
+    }
 
-
+    @Test
+    public void test11() {
+        SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
+        String format1 = format.format(new Date());
+        System.out.println(format1);
     }
 
 

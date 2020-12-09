@@ -6,7 +6,10 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 /**
@@ -16,7 +19,9 @@ import lombok.Data;
 @ApiModel
 @Data
 @TableName("user")
-public class User implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+public class User extends D implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -41,4 +46,9 @@ public class User implements Serializable {
 	@ApiModelProperty(name = "createtime",value = "")
 	private String createtime;
 
+	public User(Integer id, String username, Integer age) {
+		this.id = id;
+		this.username = username;
+		this.age = age;
+	}
 }
