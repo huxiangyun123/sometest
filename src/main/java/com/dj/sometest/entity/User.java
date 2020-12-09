@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @TableName("user")
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends D implements Serializable {
+public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**

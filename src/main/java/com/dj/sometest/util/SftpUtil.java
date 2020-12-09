@@ -65,6 +65,15 @@ public class SftpUtil {
         }
     }
 
+    public static void upload2(String directory,InputStream inputStream, String fileName) {
+        try {
+            sftp.cd(directory);
+            sftp.put(inputStream, fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * 上传流
