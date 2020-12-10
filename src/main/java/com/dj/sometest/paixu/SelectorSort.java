@@ -32,5 +32,21 @@ public class SelectorSort {
         }
 
         System.out.println(Arrays.toString(arr));
+
+        int minIndex = 0;
+        int min = arr[0];
+        for (int j = 1; j < arr.length; j++) {
+            if (min > arr[j]) {
+                //说明假定的min并不是最小值
+                //则替换
+                min = arr[j];
+                minIndex = j;
+            }
+        }
+        //第一次将最小值放到最前面
+        if (minIndex != 0) {
+            arr[minIndex] = arr[0];
+            arr[0] = min;
+        }
     }
 }

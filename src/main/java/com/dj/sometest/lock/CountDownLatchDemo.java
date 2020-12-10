@@ -14,17 +14,8 @@ public class CountDownLatchDemo {
             }, String.valueOf(i)).start();
         }
         countDownLatch.await();
-        System.out.println(Thread.currentThread().getName() + "\t班长关门走人");
+        System.out.println(Thread.currentThread().getName() + "\t关门走人");
 
     }
 
-    public static void closeDoor() {
-        for (int i = 1; i <= 6; i++) {
-            new Thread(() -> {
-                System.out.println(Thread.currentThread().getName() + "\t离开教室");
-            }, String.valueOf(i)).start();
-        }
-
-        System.out.println(Thread.currentThread().getName() + "\t班长关门走人");
-    }
 }

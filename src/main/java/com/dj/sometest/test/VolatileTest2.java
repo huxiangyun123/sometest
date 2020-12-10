@@ -30,10 +30,5 @@ public class VolatileTest2 {
             obj.flag = false;
             System.out.println("t2 end");
         },"t2").start();
-
-        /*for (;;){
-            System.out.println(obj.flag);
-        }*/
     }
-
 }
