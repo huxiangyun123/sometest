@@ -10,19 +10,19 @@ public class SemaphoreDemo {
         for (int i = 1; i <= 6; i++) {
             new Thread(() -> {
                 try {
-                    semaphore.acquire();
-                    System.out.println(Thread.currentThread().getName() + "\t抢占到了车位");
-                    //暂停一会儿线程
-                    try {
-                        TimeUnit.SECONDS.sleep(3);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    boolean b = semaphore.tryAcquire();
+                    if(b){
+                        System.out.println(Thread.currentThread().getName() + "抢占成功");
+                    }else {
+                        System.out.println(Thread.currentThread().getName() + "抢占失败");
                     }
-                    System.out.println(Thread.currentThread().getName() + "\t离开了车位");
+                    //暂停一会儿线程
+                    TimeUnit.SECONDS.sleep(3);
+                    //System.out.println(Thread.currentThread().getName() + "\t离开了车位");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    semaphore.release();
+                    //semaphore.release();
                 }
             }, String.valueOf(i)).start();
         }

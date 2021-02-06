@@ -3,6 +3,8 @@ package com.dj.sometest.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dj.sometest.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
 
 
 /**
@@ -11,5 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
+
 
 }

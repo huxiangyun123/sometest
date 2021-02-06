@@ -1,6 +1,19 @@
 package com.dj.sometest.controller;
 
+import com.alibaba.excel.EasyExcel;
+import com.dj.sometest.entity.User;
+import com.dj.sometest.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @Author: Chris
@@ -8,4 +21,19 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class UserController {
+
+    @Autowired
+    UserMapper userMapper;
+
+
+    @Transactional(rollbackFor = Exception.class)
+    @GetMapping("/test222")
+    public void test(){
+        User user = userMapper.selectById(1);
+        user.setAge(5);
+        userMapper.updateById(user);
+        System.out.println(user);
+    }
+
+
 }

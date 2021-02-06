@@ -29,6 +29,7 @@ import java.util.concurrent.TimeUnit;
  * @Author: Chris
  * @Date: 2020/7/29 21:51
  */
+
 @ComponentScan("com.dj.sometest")
 @Configuration
 public class Myconfig {

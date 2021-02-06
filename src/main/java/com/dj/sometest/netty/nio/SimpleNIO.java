@@ -1,9 +1,8 @@
-package com.dj.sometest.test;
+package com.dj.sometest.netty.nio;
 
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.ServerSocket;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
 import java.util.Iterator;
@@ -13,7 +12,13 @@ import java.util.Set;
  * @Author: Chris
  * @Date: 2020/10/26 15:11
  */
-public class NIOTest {
+public class SimpleNIO {
+
+    /**
+     * Reactor单线程：单线程处理业务
+     * Reactor多线程：多线程处理业务
+     * Reactor主从：  多个selector，事件负载均衡到多个selector上
+     */
 
     private static ServerSocketChannel serverSocketChannel;
 
@@ -29,10 +34,13 @@ public class NIOTest {
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
         while (true){
-            int select = selector.select();
+            //监控所有注册到selector上的通道，当有事件发生时，将对应的SelectionKey加入到selectedKeys集合中
+            //2000表示监听2s有没有事件发生，不传表示阻塞监听
+            int select = selector.select(2000);
             if(select == 0){
                 continue;
             }
+            //每个客户端注册到selector上就会有绑定一个SelectionKey
             Set<SelectionKey> selectionKeys = selector.selectedKeys();
             Iterator<SelectionKey> it = selectionKeys.iterator();
             SelectionKey key = null;
@@ -54,6 +62,7 @@ public class NIOTest {
                 SocketChannel accept = ssc.accept();
                 System.out.println("接收到客户端===>" + accept);
                 accept.configureBlocking(false);
+                //客户端socket连接注册到selector上
                 accept.register(selector,SelectionKey.OP_READ);
             }
             
@@ -70,6 +79,8 @@ public class NIOTest {
                 }
                 //写数据
             }
+
+
         }
     }
 

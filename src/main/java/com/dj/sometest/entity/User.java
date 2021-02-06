@@ -25,35 +25,23 @@ import lombok.NoArgsConstructor;
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-	@TableId
-	@ApiModelProperty(name = "id",value = "")
+
 	@ExcelProperty("用户id")
 	private Integer id;
-	/**
-	 * 
-	 */
-	@ApiModelProperty(name = "username",value = "")
+
 	@ExcelProperty("用户名称")
 	private String username;
-	/**
-	 * 
-	 */
-	@ApiModelProperty(name = "age",value = "")
-	@ExcelProperty("用户年龄")
-	private Integer age;
-	/**
-	 * 
-	 */
-	@ApiModelProperty(name = "createtime",value = "")
-	@ExcelProperty("创建时间")
-	private String createtime;
 
-	public User(Integer id, String username, Integer age) {
+	@ExcelProperty("密码")
+	private String password;
+
+	@ExcelProperty("创建时间")
+	private Date createTime;
+
+	private Integer age;
+
+	public User(Integer id, String username) {
 		this.id = id;
 		this.username = username;
-		this.age = age;
 	}
 }
