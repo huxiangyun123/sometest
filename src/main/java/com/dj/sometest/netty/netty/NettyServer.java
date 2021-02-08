@@ -35,7 +35,6 @@ public class NettyServer {
                  //设置保持活动连接状态
                  .childOption(ChannelOption.SO_KEEPALIVE,true)
                  //handler对应parentGroup,childHandler对应childGroup
-                 .handler(null)
                  .childHandler(new ChannelInitializer<SocketChannel>() {
                      //创建一个通道初始化对象
                      //给pipeline设置处理器
@@ -50,6 +49,7 @@ public class NettyServer {
 
         //绑定一个端口并且同步,返回一个channelFuture对象
         //启动服务器
+        //bind是异步操作,sync()是为了同步等待该绑定操作完成
         ChannelFuture channelFuture = bootstrap.bind(6668).sync();
 
         //通过监听ChannelFuture的状态做出相应操作
@@ -65,6 +65,7 @@ public class NettyServer {
         });
 
         //对关闭通道进行监听
+        //等待服务端关闭,sync()阻塞等待
         channelFuture.channel().closeFuture().sync();
     }
 }
