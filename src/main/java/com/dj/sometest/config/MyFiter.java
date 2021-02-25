@@ -20,13 +20,16 @@ import java.util.Map;
 public class MyFiter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        System.out.println("自定义过滤器=============");
         HttpServletRequest httpReq = (HttpServletRequest) servletRequest;
         long startTime = System.currentTimeMillis();
         String token = httpReq.getHeader("token");
 
 
-        String url = httpReq.getRequestURI();
-        log.info("request uri:{}", url);
+        String uri = httpReq.getRequestURI();
+        StringBuffer url = httpReq.getRequestURL();
+        log.info("request uri:{}", uri);
+        log.info("request url:{}", url);
         Map<String, String> map = new HashMap<String, String>();
         Enumeration<String> headerNames = httpReq.getHeaderNames();
         while (headerNames.hasMoreElements()) {

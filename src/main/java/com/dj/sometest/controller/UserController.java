@@ -26,13 +26,9 @@ public class UserController {
     UserMapper userMapper;
 
 
-    @Transactional(rollbackFor = Exception.class)
     @GetMapping("/test222")
-    public void test(){
-        User user = userMapper.selectById(1);
-        user.setAge(5);
-        userMapper.updateById(user);
-        System.out.println(user);
+    public String test(){
+        return "test222";
     }
 
 
